@@ -1,7 +1,7 @@
 # GraphHeuristicPlanner
 Prototype Graph Query Planner and Executor
 
-The project consists of multiple componets -- parser, heuristic planner and executor.
+The project consists of multiple components -- parser, heuristic planner and executor.
 
 The parser parses raw Gremlin/Test language query and generates an Abstract Syntax Tree.
 
