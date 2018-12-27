@@ -1,0 +1,23 @@
+package GraphHeuristicPlanner.Planner;
+
+import GraphHeuristicPlanner.*;
+
+global GraphHeuristicPlanner.TraversalPlanner traversalPlanner
+
+dialect  "temptest"
+
+rule "Choose Hill Climbing Algorithm if memory is being used to high extent"
+    when
+        MemoryConsumptionCalculator(currentMemoryUsage > MEMORY_LIMIT)
+        TraversalPlanner(algorithmChosen == AlgorithmChose.ASTAR)
+    then
+        traversalPlanner.setAlgorithmChosen(AlgorithmChose.HILLCLIMBING);
+end
+
+rule "Choose A* algorithm if memory being used is low"
+    when
+        MemoryConsumptionCalculator(currentMemoryUsage <= MEMORY_LIMIT)
+        TraversalPlanner(algorithmChosen == AlgorithmChose.HILLCLIMBING)
+    then
+        traversalPlanner.setAlgorithmChosen(AlgorithmChose.ASTAR);
+end

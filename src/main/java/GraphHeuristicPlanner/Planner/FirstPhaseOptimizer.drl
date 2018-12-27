@@ -1,0 +1,24 @@
+package GraphHeuristicPlanner.Planner;
+
+import GraphHeuristicPlanner.*;
+
+global GraphHeuristicPlanner.PredicateClause predicateClause;
+global GraphHeuristicPlanner.ASTNode astNode;
+
+dialect  "temptest"
+
+rule "Expand '*' MATCHES clause"
+    when
+        PredicateClause(predicateType == PredicateType.MATCHES)
+        PredicateClause(clause == "*")
+    then
+        predicateClause.setClause(astNode.getNodeName());
+end
+
+rule "Rewrite MATCHES and include in WHERE"
+    when
+        PredicateClause(predicateType == PredicateType.MATCHES)
+        PredicateClause(selectivity > 0.2)
+    then
+        predicateClause.setPredicateType(PredicateType.WHERE);
+end
